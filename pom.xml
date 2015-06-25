@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.4.RELEASE</version>
+    </parent>
+
+    <groupId>com.freightforge</groupId>
+    <artifactId>QuoteManager</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>FreightForge Quote Manager</name>
+    <description></description>
+
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
+
+    <properties>
+        <!-- Maven build properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+
+        <!-- Maven plugins versions -->
+        <maven-sortpom-plugin.version>2.3.0</maven-sortpom-plugin.version>
+        <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
+        <sonar-maven-plugin.version>2.3</sonar-maven-plugin.version>
+    </properties>
+
+    <modules>
+
+        <module>QuoteManager-server</module>
+    </modules>
+
+    <!--
+    <repositories>
+        <repository>
+            <id>freightforge</id>
+            <url>http://nexus.freightforge.com/content/groups/freightforge</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>http://repo.spring.io/release</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <scm>
+        <url>https://github.com/freightforge/QuoteManager/</url>
+        <connection>scm:git:ssh://git@github.com/freightforge/QuoteManager.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/freightforge/QuoteManager.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>FreightForge issue tracker</system>
+        <url>https://github.com/freightforge/QuoteManager/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>FreightForge developer group</name>
+            <subscribe>freightforge-dev@googlegroups.com</subscribe>
+            <unsubscribe>freightforge-dev-unsubscribe@googlegroups.com</unsubscribe>
+            <post>freightforge-dev@googlegroups.com</post>
+            <archive>http://groups.google.com/group/freightforge-dev</archive>
+        </mailingList>
+    </mailingLists>
+    <developers>
+        <developer>
+            <id>nboncoure</id>
+            <name>Nicolas Boncoure</name>
+            <email>nicolas.boncoure@freightforge.com</email>
+            <url>http://nboncoure.didrok.com</url>
+            <organization>FREIGHTFORGE</organization>
+            <organizationUrl>http://www.freightforge.com</organizationUrl>
+            <timezone>GMT +1</timezone>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+</project>
