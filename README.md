@@ -7,7 +7,7 @@
                                                             __/ |
                                                            |___/
 
-# QuoteManager [![Circle CI](https://circleci.com/gh/freightforge/QuoteManager.svg?style=svg&circle-token=9d807a6e65313cb53c51f44965eab73aca94e284)](https://circleci.com/gh/freightforge/QuoteManager)
+# QuoteManager [![Circle CI](https://circleci.com/gh/Freightforge/QuoteManager.svg?style=svg)](https://circleci.com/gh/Freightforge/QuoteManager)
 
 ## About QuoteManager App
 
