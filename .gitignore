@@ -98,3 +98,6 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
+
+## Bower
+bower_components

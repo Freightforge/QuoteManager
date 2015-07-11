@@ -1,0 +1,67 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js sidebar-large lt-ie9 lt-ie8 lt-ie7" dir="ltr" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js sidebar-large lt-ie9 lt-ie8" dir="ltr" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js sidebar-large lt-ie9" dir="ltr" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js sidebar-large" dir="ltr" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FreightForge</title>
+
+    <meta name="author" content="Didrok SARL"/>
+    <meta name="description" content="">
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css assets/styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) assets/styles/main.css -->
+    <link rel="stylesheet" href="assets/styles/animate.css">
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <!-- endbuild -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.cloud/js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<header id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+</header>
+
+<main>
+    <div id="main-content" class="container"></div>
+</main>
+
+<!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>-->
+
+<!-- build:js scripts/lib.js -->
+<script src="scripts/lib/modernizr.js"></script>
+<script src="scripts/lib/matchMedia.js"></script>
+<!-- endbuild -->
+
+<!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
+<script src="scripts/bower_components/requirejs/require.js"></script>
+<script src="scripts/config.js"></script>
+<!-- endbuild -->
+</body>
+</html>
