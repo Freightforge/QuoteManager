@@ -1,0 +1,71 @@
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#"></a>
+</div>
+<nav class="collapse navbar-collapse" id="navbar-collapse">
+    <ul class="nav navbar-nav navbar-right">
+        <li id="credit" class="dropdown">
+            <a href="#credit" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <span>$</span> 12.85 <b class="fa fa-angle-down p-r-10"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#deposit">Make a deposit</a></li>
+                <li><a href="#invoices">Deposit history</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="glyphicon glyphicon-list"></i>
+                <span>Dashboard</span>
+                <i class="fa fa-angle-down p-r-10"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#quotes?filter=-10">Open quotes</a></li>
+                <li><a href="#quotes?filter=-20">Allocated quotes</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">My filters</li>
+                <li><a href="#quotes?filter=3">Open Flatbed</a></li>
+            </ul>
+        </li>
+        <li class="dropdown" id="user-header">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <div class="avatar avatar-notifications" style="background-image: url(https://secure.gravatar.com/avatar/c56df7ce825da5a7cdfb06e9d1b96aeb.jpg?s=300&amp;d=https%3A%2F%2Fcdn-images.mailchimp.com%2Ficons%2Fletter-avatars%2Fn.png);"></div>
+                <span class="username">Nicolas</span>
+                <i class="fa fa-angle-down p-r-10"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="#user">
+                        <i class="glyph-icon flaticon-account"></i> My Account
+                    </a>
+                </li>
+                <li>
+                    <a href="#calendar">
+                        <i class="fa fa-group"></i> My Company
+                    </a>
+                </li>
+                <li>
+                    <a href="#profil_edit">
+                        <i class="glyph-icon flaticon-settings21"></i> Account Settings
+                    </a>
+                </li>
+                <li class="dropdown-footer clearfix hidden-xs">
+                    <a href="javascript:;" class="toggle_fullscreen" title="Fullscreen">
+                        <i class="glyph-icon flaticon-fullscreen3"></i>
+                    </a>
+                    <a href="#lockscreen" title="Lock Screen">
+                        <i class="glyph-icon flaticon-padlock23"></i>
+                    </a>
+                    <a href="/logout" data-bypass="true" title="Logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

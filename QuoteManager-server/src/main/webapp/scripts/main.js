@@ -1,9 +1,10 @@
 define([
         'jquery',
         'underscore',
-        'backbone'
+        'backbone',
+        'module/app'
     ],
-    function ($, _, Backbone) {
+    function ($, _, Backbone, App) {
         'use strict';
 
         $('html').removeClass('no-js');

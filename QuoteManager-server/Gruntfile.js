@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                 tasks: ['less']
             },
             styles: {
-                files: ['src/main/webapp/assets/styles/**/*.css']
+                files: ['src/main/webapp/assets/styles/{,*/}*.css']
             }
         },
         autoprefixer: {

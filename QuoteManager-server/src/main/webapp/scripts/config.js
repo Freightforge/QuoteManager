@@ -17,17 +17,8 @@ require.config({
             deps: [
                 'jquery'
             ],
-            exports: 'jquery'
-        },
-        'jquery.atmosphere': [
-            'jquery'
-        ],
-        'jquery.breakpoints': [
-            'jquery'
-        ],
-        'jquery.circliful': [
-            'jquery'
-        ]
+            exports: '$.fn.popover'
+        }
     },
     packages: [
 
@@ -44,10 +35,20 @@ require.config({
         requirejs: 'bower_components/requirejs/require',
         'requirejs-i18n': 'bower_components/requirejs-i18n/i18n',
         'requirejs-text': 'bower_components/requirejs-text/text',
-        underscore: 'bower_components/underscore/underscore'
+        underscore: 'bower_components/underscore/underscore',
+        'require-handlebars-plugin': 'bower_components/require-handlebars-plugin/hbs',
+        handlebars: 'bower_components/require-handlebars-plugin/hbs',
+        i18nprecompile: 'bower_components/require-handlebars-plugin/hbs/i18nprecompile',
+        json2: 'bower_components/require-handlebars-plugin/hbs/json2',
+        text: 'bower_components/requirejs-text/text',
+        i18n: 'bower_components/requirejs-i18n/i18n',
+        tmpl: 'template',
+        hbs: 'bower_components/require-handlebars-plugin/hbs'
     },
     locale: 'en_us',
     hbs: {
         disableI18n: true
-    }
+    },
+    enforceDefine: true,
+    waitSeconds: 7
 });
