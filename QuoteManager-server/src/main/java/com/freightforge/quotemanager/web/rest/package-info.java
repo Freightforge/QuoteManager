@@ -1,4 +1,4 @@
 /**
- * Created by nboncoure on 26/06/15.
+ * Spring MVC REST controllers.
  */
 package com.freightforge.quotemanager.web.rest;

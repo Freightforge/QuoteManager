@@ -4,3 +4,12 @@ security.basic.enabled: false
 
 # Disable Jolokia - An http/json bridge for remote JMX access
 endpoints.jolokia.enabled: false
+
+swagger:
+    title: FreightForge API
+    description:
+    version: 1.0.0
+    termsOfServiceUrl:
+    contact:
+    license:
+    licenseUrl:

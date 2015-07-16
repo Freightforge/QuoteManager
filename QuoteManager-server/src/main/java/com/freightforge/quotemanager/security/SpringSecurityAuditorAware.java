@@ -1,7 +1,18 @@
 package com.freightforge.quotemanager.security;
 
+import com.freightforge.quotemanager.config.Constants;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.stereotype.Component;
+
 /**
- * Created by nboncoure on 14/07/15.
+ * Implementation of AuditorAware based on Spring Security.
  */
-public class SpringSecurityAuditorAware {
+@Component
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
+
+    @Override
+    public String getCurrentAuditor() {
+        String userName = SecurityUtils.getCurrentLogin();
+        return (userName != null ? userName : Constants.SYSTEM_ACCOUNT);
+    }
 }

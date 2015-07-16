@@ -1,7 +1,17 @@
 package com.freightforge.quotemanager.security;
 
+import org.springframework.security.core.AuthenticationException;
+
 /**
- * Created by nboncoure on 14/07/15.
+ * This exception is throw in case of a not activated user trying to authenticate.
  */
-public class UserNotActivatedException {
+public class UserNotActivatedException extends AuthenticationException {
+
+    public UserNotActivatedException(String message) {
+        super(message);
+    }
+
+    public UserNotActivatedException(String message, Throwable t) {
+        super(message, t);
+    }
 }

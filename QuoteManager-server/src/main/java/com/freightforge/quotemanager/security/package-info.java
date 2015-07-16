@@ -1,4 +1,4 @@
 /**
- * Created by nboncoure on 14/07/15.
+ * Spring Security configuration.
  */
 package com.freightforge.quotemanager.security;
