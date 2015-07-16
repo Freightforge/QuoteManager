@@ -1,0 +1,157 @@
+
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------- HEADER ---------------------------------------*/
+body { padding-top: 40px; }
+
+/*.navbar {min-height: 40px;margin-bottom: 20px;border: none;margin-bottom: 0;z-index: 90}*/
+.navbar-brand {background: url('../images/logo.png') no-repeat center; width: 140px}
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .navbar-brand {
+        background: url("../images/logo@2x.png") no-repeat center;
+        background-size: 147px 23px;
+    }
+}
+.navbar-inverse .navbar-brand {background: url('../images/logo_grey.png') no-repeat center; width: 140px}
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .navbar-inverse .navbar-brand {
+        background: url("../images/logo_grey@2x.png") no-repeat center;
+        background-size: 147px 23px;
+    }
+}
+
+
+#user-header > a {
+    padding-top: 9px;
+    padding-bottom: 6px;
+}
+.avatar {
+    border-radius: 3px;
+    width: 25px;
+    position: static;
+    height: 25px;
+    vertical-align: middle;
+    background-size: 25px;
+    display: inline-block;
+}
+.avatar-notifications:after {
+    content: "";
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    border-radius: 200px;
+    border: 3px solid #289dcc;
+    box-shadow: 0 0 0 2px #f8f8f8;
+    -ms-transition: all 0.25s ease-in-out 0s;
+    transition: all 0.25s ease-in-out 0s;
+}
+.navbar-nav > .open > a .avatar-notifications:after {
+    box-shadow: 0 0 0 2px #e7e7e7;
+}
+#user-header.active .avatar-notifications:after {
+    box-shadow: 0 0 0 2px #e7e7e7;
+}
+
+.navbar-inverse .avatar-notifications:after {
+    box-shadow: 0 0 0 2px #222222;
+}
+.navbar-inverse .navbar-nav > .open > a .avatar-notifications:after {
+    box-shadow: 0 0 0 2px #080808;
+}
+.navbar-inverse #user-header.active .avatar-notifications:after {
+    box-shadow: 0 0 0 2px #080808;
+}
+
+@media (max-width: @grid-float-breakpoint-max) {
+    #user-header > a {
+        padding-left: 15px;
+    }
+    .avatar-notifications:after {
+        left: 12px;
+    }
+}
+
+.username {
+    padding-left: 5px;
+}
+/*
+@media (max-width: 479px) {
+    .chat-input {display: none}
+}
+*/
+
+.dropdown-menu li.divider {
+    margin: 4px 5px;
+}
+.nav-header{
+    display:block;
+    padding:3px 15px;
+    font-size:11px;
+    font-weight:bold;
+    line-height:18px;
+    color:#999999;
+    text-shadow:0 1px 0 rgba(255, 255, 255, 0.5);
+    text-transform:uppercase;
+}
+.nav li+.nav-header{
+    margin-top:4px;
+}
+.dropdown .dropdown-menu .nav-header{
+    padding-left:10px;
+}
+
+#credit>a {
+    font-weight: 600;
+    font-size: 15px;
+    display: block;
+    span {
+        color: #999;
+    }
+}
+.dropdown .dropdown-menu {
+    .dropdown-footer {
+        border-top: 1px solid #E2E2E2;
+        color: #121212;
+        font-family: 'Carrois Gothic';
+        font-size: 12px;
+        padding: 5px;
+        background: #F8F8F8;
+        a {
+            padding: 3px 5px;
+        }
+        a:hover {
+            background: none;
+        }
+    }
+    .dropdown-footer {
+        background-color: #E9E9E9;
+        a {
+            color: #575757;
+            font-size: 16px;
+            display: inline-block;
+            width: 53px;
+            padding: 8px;
+            text-align: center;
+            i {
+                padding-right: 0;
+            }
+        }
+        a:hover {
+            background-color: #dcdcdc;
+        }
+    }
+    li.dropdown-footer {
+        padding: 0;
+    }
+}
