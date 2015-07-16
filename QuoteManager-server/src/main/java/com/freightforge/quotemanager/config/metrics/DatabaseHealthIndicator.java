@@ -1,7 +1,15 @@
 package com.freightforge.quotemanager.config.metrics;
 
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.Health;
+
 /**
- * Created by nboncoure on 14/07/15.
+ * SpringBoot Actuator HealthIndicator check for the Database.
  */
-public class DatabaseHealthIndicator {
+public class DatabaseHealthIndicator extends AbstractHealthIndicator {
+
+    @Override
+    protected void doHealthCheck(Health.Builder builder) throws Exception {
+        // do nothing
+    }
 }

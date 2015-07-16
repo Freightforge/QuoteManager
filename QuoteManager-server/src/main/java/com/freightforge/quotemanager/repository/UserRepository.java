@@ -1,7 +1,11 @@
 package com.freightforge.quotemanager.repository;
 
-/**
- * Created by nboncoure on 14/07/15.
- */
-public interface UserRepository {
+import com.freightforge.quotemanager.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends MongoRepository<User, String> {
+
+    Optional<User> findOneByUsername(String username);
 }

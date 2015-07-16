@@ -30,7 +30,6 @@ import java.util.concurrent.TimeUnit;
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
 public class MetricsConfiguration extends MetricsConfigurerAdapter implements EnvironmentAware {
 
-
     private static final String ENV_METRICS = "metrics.";
     private static final String ENV_METRICS_GRAPHITE = "metrics.graphite.";
     private static final String ENV_METRICS_SPARK = "metrics.spark.";
@@ -46,7 +45,6 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
     private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
     private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
-
 
     private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
 
@@ -116,45 +114,45 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
                 Graphite graphite = new Graphite(new InetSocketAddress(graphiteHost, graphitePort));
                 GraphiteReporter graphiteReporter = GraphiteReporter.forRegistry(metricRegistry)
-                        .convertRatesTo(TimeUnit.SECONDS)
-                        .convertDurationsTo(TimeUnit.MILLISECONDS)
-                        .prefixedWith(graphitePrefix)
-                        .build(graphite);
+                    .convertRatesTo(TimeUnit.SECONDS)
+                    .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .prefixedWith(graphitePrefix)
+                    .build(graphite);
                 graphiteReporter.start(1, TimeUnit.MINUTES);
             }
         }
+    }
 
-        @Configuration
-        @ConditionalOnClass(SparkReporter.class)
-        @Profile("!" + Constants.SPRING_PROFILE_FAST)
-        public static class SparkRegistry implements EnvironmentAware {
+    @Configuration
+    @ConditionalOnClass(SparkReporter.class)
+    @Profile("!" + Constants.SPRING_PROFILE_FAST)
+    public static class SparkRegistry implements EnvironmentAware {
 
-            private final Logger log = LoggerFactory.getLogger(SparkRegistry.class);
+        private final Logger log = LoggerFactory.getLogger(SparkRegistry.class);
 
-            @Inject
-            private MetricRegistry metricRegistry;
+        @Inject
+        private MetricRegistry metricRegistry;
 
-            private RelaxedPropertyResolver propertyResolver;
+        private RelaxedPropertyResolver propertyResolver;
 
-            @Override
-            public void setEnvironment(Environment environment) {
-                this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_SPARK);
-            }
+        @Override
+        public void setEnvironment(Environment environment) {
+            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_SPARK);
+        }
 
-            @PostConstruct
-            private void init() {
-                Boolean sparkEnabled = propertyResolver.getProperty(PROP_SPARK_ENABLED, Boolean.class, false);
-                if (sparkEnabled) {
-                    log.info("Initializing Metrics Spark reporting");
-                    String sparkHost = propertyResolver.getRequiredProperty(PROP_HOST);
-                    Integer sparkPort = propertyResolver.getRequiredProperty(PROP_PORT, Integer.class);
+        @PostConstruct
+        private void init() {
+            Boolean sparkEnabled = propertyResolver.getProperty(PROP_SPARK_ENABLED, Boolean.class, false);
+            if (sparkEnabled) {
+                log.info("Initializing Metrics Spark reporting");
+                String sparkHost = propertyResolver.getRequiredProperty(PROP_HOST);
+                Integer sparkPort = propertyResolver.getRequiredProperty(PROP_PORT, Integer.class);
 
-                    SparkReporter sparkReporter = SparkReporter.forRegistry(metricRegistry)
-                            .convertRatesTo(TimeUnit.SECONDS)
-                            .convertDurationsTo(TimeUnit.MILLISECONDS)
-                            .build(sparkHost, sparkPort);
-                    sparkReporter.start(1, TimeUnit.MINUTES);
-                }
+                SparkReporter sparkReporter = SparkReporter.forRegistry(metricRegistry)
+                    .convertRatesTo(TimeUnit.SECONDS)
+                    .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .build(sparkHost, sparkPort);
+                sparkReporter.start(1, TimeUnit.MINUTES);
             }
         }
     }

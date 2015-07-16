@@ -5,3 +5,10 @@ server:
 spring:
     profiles:
         active: dev
+    data:
+        mongodb:
+            host: 192.168.59.103
+            port: 27017
+            database: freightforge
+
+freightforge.security.rememberme.key: f073040dfdf63c2b970bb39d91993f69c8fe3907

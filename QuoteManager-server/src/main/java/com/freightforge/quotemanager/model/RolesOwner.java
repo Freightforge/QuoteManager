@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class RolesOwner implements Serializable {
+public class RolesOwner extends AbstractAuditingEntity implements Serializable {
 
     /** Serialization version. */
     private static final long serialVersionUID = 1L;
