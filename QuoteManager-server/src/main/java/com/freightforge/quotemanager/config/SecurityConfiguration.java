@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.switchuser.SwitchUserFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 
 import javax.inject.Inject;
@@ -70,6 +71,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**");
     }
 
+    @Bean
+    public SwitchUserFilter switchUserProcessingFilter(UserDetailsService userDetailsService) {
+        SwitchUserFilter switchUserFilter = new SwitchUserFilter();
+        switchUserFilter.setUserDetailsService(userDetailsService);
+        switchUserFilter.setTargetUrl("/");
+        return switchUserFilter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -78,6 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             //.ignoringAntMatchers("/websocket/**")
             //.and()
             //.addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
+            .addFilter(switchUserProcessingFilter(userDetailsService))
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
@@ -87,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .key(env.getProperty("freightforge.security.rememberme.key"))
             .and()
             .formLogin()
-            .loginProcessingUrl("/api/authentication")
+            .loginProcessingUrl("/login")
             .successHandler(ajaxAuthenticationSuccessHandler)
             .failureHandler(ajaxAuthenticationFailureHandler)
             .usernameParameter("username")
@@ -95,7 +105,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .logout()
-            .logoutUrl("/api/logout")
+            .logoutUrl("/logout")
             .logoutSuccessHandler(ajaxLogoutSuccessHandler)
             .deleteCookies("JSESSIONID")
             .permitAll()
@@ -105,7 +115,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/authenticate").permitAll()
+            .antMatchers("/login/impersonate").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/login").permitAll()
+            .antMatchers("/logout/impersonate").hasAuthority(SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR)
+            .antMatchers("/logout").authenticated()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
             .antMatchers("/webjars/**").permitAll()
