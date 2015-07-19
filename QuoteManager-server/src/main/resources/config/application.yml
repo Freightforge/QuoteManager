@@ -13,3 +13,7 @@ swagger:
     contact:
     license:
     licenseUrl:
+
+swarm:
+    clientId: freightforge
+    clientSecret: secret

@@ -1,9 +1,12 @@
 package com.freightforge.quotemanager.config;
+
 import com.freightforge.quotemanager.security.*;
-import com.freightforge.quotemanager.web.filter.CsrfCookieGeneratorFilter;
+import com.freightforge.quotemanager.security.swarm.SwarmAuthenticationEntryPoint;
+import com.freightforge.quotemanager.security.swarm.SwarmAuthenticationFilter;
+import com.freightforge.quotemanager.security.swarm.SwarmAuthenticationProvider;
+import com.freightforge.quotemanager.web.filter.SwitchUserFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,14 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.switchuser.SwitchUserFilter;
-import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
 import javax.inject.Inject;
 
@@ -28,36 +29,27 @@ import javax.inject.Inject;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
-    private Environment env;
-
-    @Inject
-    private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
-
-    @Inject
-    private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
-
-    @Inject
-    private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
-
-    @Inject
-    private Http401UnauthorizedEntryPoint authenticationEntryPoint;
-
-    @Inject
     private UserDetailsService userDetailsService;
 
-    @Inject
-    private RememberMeServices rememberMeServices;
+    @Bean
+    public SwarmAuthenticationEntryPoint authenticationEntryPoint() {
+        return new SwarmAuthenticationEntryPoint();
+    }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public SwarmAuthenticationFilter authenticationFilter() {
+        return new SwarmAuthenticationFilter();
+    }
+
+    @Bean
+    public SwarmAuthenticationProvider authenticationProvider() {
+        return new SwarmAuthenticationProvider();
     }
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder());
+            .authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -71,49 +63,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**");
     }
 
-    @Bean
-    public SwitchUserFilter switchUserProcessingFilter(UserDetailsService userDetailsService) {
-        SwitchUserFilter switchUserFilter = new SwitchUserFilter();
-        switchUserFilter.setUserDetailsService(userDetailsService);
-        switchUserFilter.setTargetUrl("/");
-        return switchUserFilter;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .addFilterAfter(switchUserProcessingFilter(userDetailsService), FilterSecurityInterceptor.class)
+            .addFilterAfter(authenticationFilter(), SecurityContextPersistenceFilter.class)
+            .exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPoint())
+        .and()
             .csrf()
             .disable()
-            //.ignoringAntMatchers("/websocket/**")
-            //.and()
-            //.addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
-            .addFilter(switchUserProcessingFilter(userDetailsService))
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint)
-            .and()
-            .rememberMe()
-            .rememberMeServices(rememberMeServices)
-            .rememberMeParameter("remember-me")
-            .key(env.getProperty("freightforge.security.rememberme.key"))
-            .and()
-            .formLogin()
-            .loginProcessingUrl("/login")
-            .successHandler(ajaxAuthenticationSuccessHandler)
-            .failureHandler(ajaxAuthenticationFailureHandler)
-            .usernameParameter("username")
-            .passwordParameter("password")
-            .permitAll()
-            .and()
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessHandler(ajaxLogoutSuccessHandler)
-            .deleteCookies("JSESSIONID")
-            .permitAll()
-            .and()
             .headers()
             .frameOptions()
             .disable()
-            .and()
+        .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
             .authorizeRequests()
             .antMatchers("/login/impersonate").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/login").permitAll()
@@ -138,6 +104,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/swagger-ui.html").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated();
 
+    }
+
+    @Bean
+    public SwitchUserFilter switchUserProcessingFilter(UserDetailsService userDetailsService) {
+        SwitchUserFilter switchUserFilter = new SwitchUserFilter();
+        return switchUserFilter;
     }
 
     @Bean
